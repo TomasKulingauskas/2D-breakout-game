@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Gamedev Canvas Workshop</title>
+     <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+    <style>
+    	* { padding: 0; margin: 0; }
+    	canvas { background: #eee; display: block; margin: 0 auto; }
+    	#gameover {
+    		text-align: center;
+    		margin-top: 25px;
+    		color: red;
+    		font-family: 'Orbitron', sans-serif;
+    		font-size: 30px;
+    	}
+    	
+    	#score,
+    	#displayScore
+    	 {
+    		text-align: center;
+    		margin-top: 25px;
+    		color: green;
+    		font-family: sans-serif;
+    		font-size: 20px;
+    	}
+
+    	.container {
+    	 margin-top: 15px;	
+   		 text-align: center;
+		}	
+    </style>
+
+</head>
+<body>
+<canvas id="myCanvas" width="480" height="420"></canvas>
+<p id="displayScore"></p>
+<p id="gameover"></p>
+<p id="score"></p>
+<div class="container">
+<button type="button" id="restart">Restart</button>
+</div>
+<script type="text/javascript" src="script.min.js"></script>
+</body>
+</html>
