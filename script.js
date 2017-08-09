@@ -2,9 +2,12 @@
 	var ctx = canvas.getContext("2d");
 	canvas.style.background = "#F5EAD5";
 
+
+    var restartButton = document.querySelector('#restart');
+    restartButton.style.display = "none";
+
 	var scoreCount = 0;
 	var gameover = document.querySelector('#gameover');
-	var button = document.querySelector('#restart');
 	var score = document.querySelector('#score');
 	var displayScore = document.querySelector('#displayScore');
 
@@ -16,7 +19,7 @@
 	var leftArrowPressed = false;
 
 	var x = canvas.width/2;
-	var y = canvas.height-30;
+	var y = canvas.height-16;
 	var deltaX = 2;
 	var deltaY = -2;
 	var ballRadius = 6;
@@ -28,11 +31,10 @@
 	var blockPadding = 10;
 	var blockOffsetTop = 30;
 	var blockOffsetLeft = 30;
-
-
-	button.addEventListener("click", function() {
-		window.location.reload();
-	});
+    
+    restartButton.addEventListener("click", function() {
+        window.location.reload();
+    })
 
 	var random = function(){
 	return 'rgb(' + Math.floor(Math.random()*256) + ',' + Math.floor(Math.random()*256) + ',' + Math.floor(Math.random()*256) + ')';
@@ -125,6 +127,7 @@ function collisionDetection() {
 		drawBall("green");
 		drawplatform();
 		collisionDetection();
+
 		
     if(x + deltaX > canvas.width-ballRadius || x + deltaX < ballRadius) {
     	drawBall("red");
@@ -141,10 +144,10 @@ function collisionDetection() {
             deltaY = -1.09*deltaY;
         }
         else {
-            displayScore.innerHTML ="";
-        	gameover.innerHTML = "GAME OVER!";
-        	score.innerHTML = "You scored" +' ' + scoreCount +' ' + 'points!';
-        	clearInterval(start);  
+            return displayScore.innerHTML ="",
+        	gameover.innerHTML = "GAME OVER!",
+        	score.innerHTML = "You scored" +' ' + scoreCount +' ' + 'points!',
+            restartButton.style.display = "inline";
         }
     }	
 
@@ -159,6 +162,11 @@ function collisionDetection() {
     	y += deltaY;
 
 	}
+	  
+    draw();
 
-	var start = setInterval(draw, 10);
-	start();
+    var start = function(){
+        setInterval(draw, 10);   
+    }
+
+    setTimeout(start, 1500);
