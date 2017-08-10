@@ -31,6 +31,7 @@
 	var blockPadding = 10;
 	var blockOffsetTop = 30;
 	var blockOffsetLeft = 30;
+    var blocksCount = RowCount * ColumnCount;
     
     restartButton.addEventListener("click", function() {
         window.location.reload();
@@ -106,13 +107,21 @@ function collisionDetection() {
         for(r=0; r<RowCount; r++) {
             var b = blocks[c][r];
             if(b.visible === 1) {
-            	if(x > b.x && x < b.x+blockWidth && y > b.y && y < b.y+blockHeight) {
-					drawBall("red");
-                	deltaY = -deltaY;
-                	b.visible = 0;
-                	scoreCount += 5;
-                	displayScore.innerHTML = "Score:" +' '+ scoreCount;
-                }	
+                if(x > b.x && x < b.x+blockWidth && y > b.y && y < b.y+blockHeight) {
+                    drawBall("red");
+                    deltaY = -deltaY;
+                    blocksCount -= 1;
+                    b.visible = 0;
+                    scoreCount += 15;
+                    displayScore.innerHTML = "Score:" +' '+ scoreCount;
+                    if(blocksCount===0){
+                        ctx.clearRect(b.x, b.y, blockWidth, blockHeight+5);
+                        gameover.style.color = "green";
+                        gameover.innerHTML = "YOU WON!";
+                        restartButton.style.display = "inline";
+                        clearInterval(id);
+                    }    
+                }   
             }
         }
     }
@@ -141,7 +150,7 @@ function collisionDetection() {
         if(x > platformX && x < platformX + platformWidth) {
         	drawBall("red");
            
-            deltaY = -1.09*deltaY;
+            deltaY = -1.06*deltaY;
         }
         else {
             return displayScore.innerHTML ="",
@@ -165,8 +174,10 @@ function collisionDetection() {
 	  
     draw();
 
-    var start = function(){
-        setInterval(draw, 10);   
+    var id;
+
+     var start = function(){
+        id = setInterval(draw, 10);  
     }
 
-    setTimeout(start, 1500);
+   setTimeout(start, 1500);
